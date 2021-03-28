@@ -1,9 +1,8 @@
 # LDFF_V1
-This study was performed to establish a novel method named LDFF to accurately quantify cell-free fetal DNA fraction (FF) in maternal plasma by utilizing linkage disequilibrium (LD) information from maternal and fetal haplotypes. The workflow consists of three processes, the first of regional LD-ratios were calculated on the 521 genomic regions, as well as the genome coverage, coverage of the reads with a MQ score>0 and PCR duplication rate. Several multivariate regression models were generated with different MAF filtering cutoff using all training samples. Then, the outliers in the training samples in different MAF filtering models were identified and removed from the corresponding model to avoid over-fitting. Multivariate regression models were rebuilt using the remaining samples. Finally, MAF filtering cutoff was selected as the model has best accuracy.
+This study was performed to establish a novel method named LDFF to accurately quantify cell-free fetal DNA fraction (FF) in maternal plasma by utilizing linkage disequilibrium (LD) information from maternal and fetal haplotypes. The workflow consists of four processes, the first of regional LD-ratios were calculated on the 521 genomic regions, as well as the genome coverage, coverage of the reads with a MQ score>0 and PCR duplication rate. Then, several multivariate regression models were generated with different MAF filtering cutoff using all training samples. Thrid, the outliers in the training samples in different MAF filtering models were identified and removed from the corresponding model to avoid over-fitting. Multivariate regression models were rebuilt using the remaining samples. Finally, MAF filtering cutoff was selected as the model has best accuracy.
 
 
-Step1:
-#Regional LD-ratios and confounders calculation
+Step1:Regional LD-ratios and confounders calculation
 
 samtools mpileup -f database_hg19/hg19.fasta -b bamlist -r chr1:1-5000000 -v -o result/chr1.1.5000000/mpileup.chr1.1.5000000.vcf.gz -l database_hg19/1kg.easaf0.2/chr1.pos.txt
 
@@ -13,19 +12,19 @@ perl bin/regional_LDratio.pl result/chr1.1.5000000/mpileup.chr1.1.5000000.vcf.gz
 
 perl bin/bamstat.combine.pl bamstats > confounders
 
-#pastes the regional LD-ratios of maf 0.02 in regional_LDratios.txt and the genome coverage, coverage of the reads with a MQ score>0 and PCR duplication rate in confounders into train.input.maf0.2
+Step2:Build multivariate regression models when MAF filtering cutoff=0.2
 
-#Build multivariate regression models when MAF filtering cutoff=0.2
+#pastes the regional LD-ratios of maf 0.02 in regional_LDratios.txt and the genome coverage, coverage of the reads with a MQ score>0 and PCR duplication rate in confounders into train.input.maf0.2
 
 Rscript bin/Linear_regression_chrYbasedff.R train.input.maf0.2 test.input.maf0.2
 
-Step2:Remove outliers in the training set
+Step3:Remove outliers in the training set
 
 Rscript bin/run_Reg_Diag.R Linear-model.RData |grep '\*' > outliners_line.log
 
 perl bin/remove_outliners.pl train.input.maf0.2 outliners_line.log > train.input.maf0.2.removeoutliners
 
-Step3:multivariate regression models retraining
+Step4:multivariate regression models retraining
 
 Rscript bin/Linear_regression_chrYbasedff.R train.input.maf0.2.removeoutliners test.input.maf0.2> test.input.log
 
