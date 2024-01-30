@@ -4,7 +4,7 @@ This study was performed to establish a novel method named LDFF to accurately qu
 ### Dependence: 
 The following steps are to work in the Perl 5 or R environment. And samtools (samtools is available from http://www.htslib.org/) and STITCH (version v1.5.3.0008, STITCH is available from http://www.stats.ox.ac.uk/~myers/) should be installed.
 
-In addition, you need to prepare the genome reference file "hg19.fasta" and the hap files and legend files for each chromosome from 1000GP Phase3  (https://www.internationalgenome.org/category/phase-3/) with the same file format as the files in "database_hg19/1000GP_Phase3/1000GP_Phase3_chr22.hap.gz" and "database_hg19/1000GP_Phase3/1000GP_Phase3_chr22.legend.gz".
+In addition, you need to prepare the genome reference file "hg19.fasta" and the haplotype files and legend files for each chromosome from 1000GP Phase3  (https://www.internationalgenome.org/category/phase-3/) with the same file format as the files in "database_hg19/1000GP_Phase3/1000GP_Phase3_chr22.hap.gz" and "database_hg19/1000GP_Phase3/1000GP_Phase3_chr22.legend.gz".
 
 ### Step1:Regional LD-ratios and confounders calculation
 
