@@ -29,9 +29,9 @@ Rscript bin/Linear_regression_chrYbasedff.R train.input.maf0.2 test.input.maf0.2
 
 ### Step3:Remove outliers in the training set
 
-Rscript bin/run_Reg_Diag.R Linear-model.RData |grep '\*' > outliners_line.log
+Rscript bin/run_Reg_Diag.R Linear-model.RData |grep '\*' > outliers_line.log
 
-perl bin/remove_outliners.pl train.input.maf0.2 outliners_line.log > train.input.maf0.2.removeoutliers
+perl bin/remove_outliers.pl train.input.maf0.2 outliers_line.log > train.input.maf0.2.removeoutliers
 
 ### Step4:multivariate regression models retraining
 
