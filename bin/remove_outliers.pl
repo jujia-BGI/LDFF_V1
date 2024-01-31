@@ -13,15 +13,15 @@ while (<O>){
 }
 close O;
 
-my $i=-1;
 open I, "$in"||die$!;
 while (<I>){
-	$i++;
-	next if(exists $sample{$i});	
+        my $i=(split /\s+/,$_)[0];
+        next if(exists $sample{$i});
         chomp;
-	print $_,"\n";
+        print $_,"\n";
 }
 close I;
+
 
 
 
