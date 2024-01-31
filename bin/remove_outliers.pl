@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-die "perl $0 <train.input> <outliners_line>\n"unless(@ARGV==2);
+die "perl $0 <train.input> <outliers_line>\n"unless(@ARGV==2);
 my $in=shift;
 my $sam = shift;
 my %sample;
